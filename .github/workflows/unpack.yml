@@ -1,0 +1,25 @@
+name: unpack bundle
+on:
+  push:
+    paths: ['kidscode-bundle.zip']
+permissions:
+  contents: write
+  pages: write
+jobs:
+  unpack:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Unpack
+        run: |
+          unzip -o -q kidscode-bundle.zip
+          rm kidscode-bundle.zip
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Add static demo, schema and security fixes"
+          git push
+      - name: Trigger Pages build
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api -X POST "/repos/$GITHUB_REPOSITORY/pages/builds" || true
