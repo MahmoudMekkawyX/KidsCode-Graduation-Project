@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Admin dashboard · KidsCode</title><meta name="description" content="KidsCode: a learning platform that teaches kids math, chemistry and programming through games.">
+<link rel="icon" href="img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@600;700;800&family=Noto+Color+Emoji&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/kp.css"></head>
+<body data-page="admin" data-nav=""><header id="nav" class="nav"></header><main id="main">
+<div class="wrap dash"><aside class="side" id="side"></aside><div>
+<div class="welcome"><div><h2>Welcome, <span id="hello"></span></h2><p>Manage students, courses and messages.</p></div><button class="btn ghost" id="reset" type="button">Reset demo data</button></div>
+<div class="panel on" id="p1"><div class="grid g4" id="stats" style="margin-bottom:24px"></div><div class="card"><h3>Enrollments per course</h3><div id="chart"></div></div></div>
+<div class="panel" id="p2"><h2 style="font-size:1.8rem">Students</h2><div id="t2"></div></div>
+<div class="panel" id="p3"><h2 style="font-size:1.8rem">Teachers</h2><div id="t3"></div></div>
+<div class="panel" id="p4"><h2 style="font-size:1.8rem">Courses</h2><div id="t4"></div></div>
+<div class="panel" id="p5"><h2 style="font-size:1.8rem">Enrollments</h2><div id="t5"></div></div>
+<div class="panel" id="p6"><h2 style="font-size:1.8rem">Messages</h2><div id="t6"></div></div></div></div><div class="modal" id="rmod"><div class="box"><h3>Reply to <span id="rto"></span></h3><div class="field"><label for="rtxt">Message</label><textarea id="rtxt" rows="5"></textarea></div><button class="btn" id="rsend" type="button">Send reply</button> <button class="btn ghost" id="rcancel" type="button">Cancel</button></div></div></main><footer id="foot"></footer><script src="js/kp.js"></script></body></html>
