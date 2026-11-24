@@ -1,0 +1,9 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Math 4 Kids</title><link rel="stylesheet" href="../../common.css"></head><body><div class="card"><h1>Math 4 Kids</h1><div class="sub">Pick the right answer. 10 questions.</div><div id="app"></div><a class="back" href="../../../Games.html">&larr; Back to games</a><div class="note">Demo version of this game for the hosted showcase.</div></div><script>
+var n=0,s=0,app=document.getElementById("app");
+function next(){if(n>=10){app.innerHTML="<div class=q>Score: "+s+" / 10</div><button onclick=\"n=0;s=0;next()\">Play again</button>";return}
+ n++;var a=1+Math.floor(Math.random()*12),b=1+Math.floor(Math.random()*12),op=["+","-","x"][Math.floor(Math.random()*3)];
+ var r=op=="+"?a+b:op=="-"?a-b:a*b,o=[r];while(o.length<4){var w=r+Math.floor(Math.random()*11)-5;if(o.indexOf(w)<0)o.push(w)}
+ o.sort(function(){return Math.random()-.5});
+ app.innerHTML="<div class=score>Question "+n+" · Score "+s+"</div><div class=q>"+a+" "+op+" "+b+" = ?</div>"+o.map(function(x){return "<button data-v="+x+">"+x+"</button>"}).join("");
+ app.querySelectorAll("button").forEach(function(bt){bt.onclick=function(){if(+bt.dataset.v==r){s++;bt.classList.add("good")}else bt.classList.add("bad");setTimeout(next,450)}})}
+next();</script></body></html>

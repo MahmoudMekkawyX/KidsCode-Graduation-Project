@@ -12,13 +12,13 @@ require 'mailer/autoload.php';
 $mail = new PHPMailer();
 
     //Server settings
-    $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+    $mail->SMTPDebug = SMTP::DEBUG_OFF;                      //Enable verbose debug output
     $mail->isSMTP();                                            //Send using SMTP
     $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
     $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-    $mail->setFrom('mekawybuisnuess@gmail.com', 'KidsCode academy');
-    $mail->Username   = 'mekawybuisnuess@gmail.com';                     //SMTP username
-    $mail->Password   = 'tdor ocaj zzag grtw';                               //SMTP password
+    $mail->setFrom(getenv('SMTP_USER') ?: 'no-reply@example.com', 'KidsCode academy');
+    $mail->Username   = getenv('SMTP_USER');                     //SMTP username
+    $mail->Password   = getenv('SMTP_PASS'); // set an app password in the environment, never in the repo                               //SMTP password
     $mail->SMTPSecure = 'ssl';            //Enable implicit TLS encryption
     $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 // content 

@@ -25,37 +25,24 @@ if (isset($_POST['Sign_Up'])) {
 
    
 
-    // Insert data into the account table
-    $sql1 = "INSERT INTO account (User_Name, email, User_password, UserType)
-            VALUES ('$namefull', '$email', '$password', '$userType')";
-    
-    // Execute SQL query for account table
-    if ($conn->query($sql1) === TRUE) {
-        echo "New record created successfully for account";
-    } else {
-        echo "Error: " . $sql1 . "<br>" . $conn->error;
-    }
+    $hash = password_hash($password, PASSWORD_DEFAULT);
 
-    // Insert data into the appropriate table based on user type
-    if ($userType == 'student') {
-        $sql2 = "INSERT INTO student (user_id, student_fname, student_lname, Email)
-         VALUES ('$maxValue', '$firstName', '$lastName', '$email')";
-
-        // Execute SQL query for student table
-        if ($conn->query($sql2) === TRUE) {
-            echo "New record created successfully for student";
+    // Insert data into the account table (prepared statement, hashed password)
+    $stmt1 = $conn->prepare("INSERT INTO account (User_Name, email, User_password, UserType) VALUES (?, ?, ?, ?)");
+    $stmt1->bind_param("ssss", $namefull, $email, $hash, $userType);
+    if ($stmt1->execute()) {
+        $newUserId = $conn->insert_id;
+        if ($userType == 'student') {
+            $stmt2 = $conn->prepare("INSERT INTO student (user_id, student_fname, student_lname, Email) VALUES (?, ?, ?, ?)");
         } else {
-            echo "Error: " . $sql2 . "<br>" . $conn->error;
+            $userType = 'teacher';
+            $stmt2 = $conn->prepare("INSERT INTO teacher (user_id, teacher_fname, teacher_lname, email) VALUES (?, ?, ?, ?)");
         }
+        $stmt2->bind_param("isss", $newUserId, $firstName, $lastName, $email);
+        $stmt2->execute();
+        echo "Account created successfully";
     } else {
-        $sql3 = "INSERT INTO teacher (user_id,teacher_fname, teacher_lname,Email)
-                VALUES ('$maxValue','$firstName', '$lastName', '$email')";
-        // Execute SQL query for teacher table
-        if ($conn->query($sql3) === TRUE) {
-            echo "New record created successfully for teacher";
-        } else {
-            echo "Error: " . $sql3 . "<br>" . $conn->error;
-        }
+        echo "Error creating account: " . htmlspecialchars($conn->error);
     }
 }
 

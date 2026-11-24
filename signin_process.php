@@ -19,7 +19,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
         // Verify password
-        if ($password == $row['User_password']) {
+        $stored = $row['User_password'];
+        // Supports hashed passwords and legacy plain-text rows from older data
+        if (password_verify($password, $stored) || hash_equals($stored, $password)) {
             // Password is correct, start a session
             session_start();
 

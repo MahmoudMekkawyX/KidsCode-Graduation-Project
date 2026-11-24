@@ -1,0 +1,6 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Speed Test</title><link rel="stylesheet" href="../common.css"></head><body><div class="card"><h1>Speed Test</h1><div class="sub">Click the box as soon as it turns green.</div><div id="app"></div><a class="back" href="../../Games.html">&larr; Back to games</a><div class="note">Demo version of this game for the hosted showcase.</div></div><script>
+var app=document.getElementById("app");app.innerHTML="<div id=b class=tile style=\"width:100%;height:140px;margin:0\">Click to start</div><div id=r class=q></div>";
+var b=document.getElementById("b"),r=document.getElementById("r"),st="idle",t0,to;
+b.onclick=function(){if(st=="idle"){st="wait";b.textContent="Wait for green...";b.className="tile";to=setTimeout(function(){st="go";b.className="tile good";b.textContent="CLICK!";t0=performance.now()},1000+Math.random()*2500)}
+ else if(st=="wait"){clearTimeout(to);st="idle";b.textContent="Too early! Click to retry";b.className="tile bad"}
+ else if(st=="go"){var t=Math.round(performance.now()-t0);r.textContent=t+" ms";st="idle";b.textContent="Click to try again"}}</script></body></html>

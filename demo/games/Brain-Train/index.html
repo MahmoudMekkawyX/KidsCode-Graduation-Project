@@ -1,0 +1,7 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Brain Train</title><link rel="stylesheet" href="../common.css"></head><body><div class="card"><h1>Brain Train</h1><div class="sub">Memory match: find all the pairs.</div><div id="app"></div><a class="back" href="../../Games.html">&larr; Back to games</a><div class="note">Demo version of this game for the hosted showcase.</div></div><script>
+var app=document.getElementById("app"),E=["🍎","🚀","🐱","⚽","🌟","🎈"],d=E.concat(E).sort(function(){return Math.random()-.5}),open=[],found=0,moves=0;
+app.innerHTML="<div class=score id=m>Moves: 0</div><div class=grid style=\"grid-template-columns:repeat(4,76px)\">"+d.map(function(x,i){return "<div class=tile data-i="+i+">?</div>"}).join("")+"</div>";
+app.querySelectorAll(".tile").forEach(function(t){t.onclick=function(){if(open.length>1||t.classList.contains("good")||open.indexOf(t)>-1)return;t.textContent=d[t.dataset.i];open.push(t);
+ if(open.length==2){moves++;document.getElementById("m").textContent="Moves: "+moves;var a=open[0],b=open[1];
+  if(d[a.dataset.i]==d[b.dataset.i]){a.classList.add("good");b.classList.add("good");open=[];if(++found==6)document.getElementById("m").textContent="Done in "+moves+" moves!"}
+  else setTimeout(function(){a.textContent="?";b.textContent="?";open=[]},700)}}})</script></body></html>
