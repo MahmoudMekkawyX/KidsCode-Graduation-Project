@@ -11,6 +11,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Unpack
         run: |
+          rm -rf demo
           unzip -o -q ./*kidscode-bundle.zip
           rm ./*kidscode-bundle.zip
           git config user.name "github-actions[bot]"
